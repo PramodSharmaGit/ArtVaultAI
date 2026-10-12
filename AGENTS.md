@@ -121,6 +121,7 @@ README.md
 
 - [ ] **Hero visual:** real photo/image vs. the current illustration-style graphic — fine to keep the placeholder illustration until the team has an actual image.
 - [ ] **Card preview images:** currently placeholder icons; swap in real images via `preview_image_url` once catalog content is finalized.
+- [ ] **Mobile nav cleanup:** deferred until core features (database, auth, tier-gated downloads) work. The layout is already responsive; only the nav needs a compact phone version. Do a quick phone-width check at the end of each new page.
 
 ## Decided (current state — not locked in; update this section + `theme.css` together whenever they change)
 

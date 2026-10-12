@@ -4,12 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}The Art Vault{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', path='images/favicon.svg') }}">
   <link rel="stylesheet" href="{{ url_for('static', path='css/theme.css') }}">
   {% block head %}{% endblock %}
 </head>
 <body>
   <header class="nav">
-    <a class="logo" href="/">The Art Vault</a>
+    <a class="logo" href="/" aria-label="The Art Vault home">
+      <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" fill="#C1542E"/>
+        <circle cx="24" cy="24" r="16.5" fill="#FFFDF9"/>
+        <circle cx="24" cy="10.5" r="4" fill="#FFD166"/>
+        <circle cx="36.5" cy="18" r="4" fill="#2F6F63"/>
+        <circle cx="36.5" cy="31" r="4" fill="#8ECAE6"/>
+        <circle cx="24" cy="38" r="4" fill="#F28B82"/>
+        <circle cx="11.5" cy="31" r="4" fill="#C77DFF"/>
+        <circle cx="11.5" cy="18" r="4" fill="#A8D5BA"/>
+        <circle cx="24" cy="24" r="5.5" fill="#C1542E"/>
+        <rect x="22.8" y="14" width="2.4" height="8" rx="1.2" fill="#C1542E"/>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-name">The Art Vault</span>
+        <span class="logo-tag">Little Hands. Limitless Ideas.</span>
+      </span>
+    </a>
     <nav>
       <a href="/#how-it-works">How it works</a>
       <a href="/#catalog">Catalog</a>
