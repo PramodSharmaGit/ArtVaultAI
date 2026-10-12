@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/landing.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Creative Activities for curious hands</h1>
+    <p class="lead">Browse 120+ printable art activities for kids ages 2–12. Create a free account to start downloading, or become a member for unlimited access.</p>
+    <div class="cta">
+      <a class="btn" href="/signup">Start free</a>
+      <a class="btn btn-outline" href="#catalog">Browse the catalog</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">🎨<span>✂️</span><span>🖍️</span></div>
+</section>
+
+<section id="how-it-works" class="section alt">
+  <h2>How it works</h2>
+  <div class="grid three">
+    <div class="card"><div class="step">1</div><h3>Browse</h3><p>Explore every activity for free — no account needed.</p></div>
+    <div class="card"><div class="step">2</div><h3>Sign up</h3><p>A free account unlocks free activities, up to 3 downloads.</p></div>
+    <div class="card"><div class="step">3</div><h3>Print &amp; create</h3><p>Members download everything, unlimited. Print, craft, repeat.</p></div>
+  </div>
+</section>
+
+<section id="catalog" class="section">
+  <h2>A peek inside the vault</h2>
+  <div class="grid three">
+    {% for a in assets %}
+    <article class="card asset">
+      <img class="asset-img" src="{{ url_for('static', path=a.image) }}" alt="Illustration of a child doing the {{ a.title }} activity">
+      <span class="badge badge-{{ a.tier }}">{{ a.tier|capitalize }}</span>
+      <h3>{{ a.title }}</h3>
+      <p class="muted">Ages {{ a.ages }} · {{ a.materials }}</p>
+    </article>
+    {% endfor %}
+  </div>
+  <p class="center"><a class="btn btn-outline" href="/catalog">See all activities</a></p>
+</section>
+
+<section id="pricing" class="section alt">
+  <h2>Pick your plan</h2>
+  <div class="grid two">
+    <div class="card plan free">
+      <h3>Free</h3>
+      <p class="price">$0</p>
+      <ul>
+        <li>Browse the whole catalog</li>
+        <li>Download free activities</li>
+        <li>3 downloads total</li>
+      </ul>
+      <a class="btn btn-outline" href="/signup">Create free account</a>
+    </div>
+    <div class="card plan member">
+      <h3>Member</h3>
+      <p class="price">Unlimited</p>
+      <ul>
+        <li>Browse the whole catalog</li>
+        <li>Download every activity</li>
+        <li>No download limit</li>
+      </ul>
+      <a class="btn" href="/signup">Become a member</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

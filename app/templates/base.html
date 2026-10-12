@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}The Art Vault{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/theme.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="/">The Art Vault</a>
+    <nav>
+      <a href="/#how-it-works">How it works</a>
+      <a href="/#catalog">Catalog</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/login">Log in</a>
+      <a class="btn" href="/signup">Sign up free</a>
+    </nav>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer class="footer">
+    <p>© The Art Vault — printable art activities for kids ages 2–12.</p>
+  </footer>
+</body>
+</html>

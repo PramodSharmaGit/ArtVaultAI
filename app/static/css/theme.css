@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap");
+
+:root {
+  --bg: #FBF6EE;
+  --bg-section: #F4EBDB;
+  --bg-card: #FFFDF9;
+  --text: #2B2420;
+  --text-muted: #6B6253;
+  --border: #E8DFD0;
+  --accent: #C1542E;   /* terracotta: primary actions, Member tier */
+  --support: #2F6F63;  /* teal: Free tier, secondary icons */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Work Sans", system-ui, sans-serif;
+  --radius-btn: 7px;
+  --radius-card: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.2; margin: 0 0 .5em; }
+a { color: inherit; }
+
+.btn {
+  display: inline-block;
+  padding: .7em 1.4em;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font: 600 1rem var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-outline { background: transparent; color: var(--accent); }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: .15em .7em;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+  color: #fff;
+}
+.badge-free { background: var(--support); }
+.badge-member { background: var(--accent); }
