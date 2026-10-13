@@ -2,13 +2,14 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', path='css/landing.css') }}">
+<link rel="preload" as="image" href="{{ url_for('static', path='images/hero-crafts.jpg') }}">
+<script defer src="{{ url_for('static', path='js/hero-video.js') }}"></script>
 {% endblock %}
 
 {% block content %}
 <section class="hero">
-  <div class="floaters" aria-hidden="true">
-    <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i>
-  </div>
+  <img class="hero-cover" src="{{ url_for('static', path='images/hero-crafts.jpg') }}" alt="" fetchpriority="high" width="1274" height="720">
+  <video class="hero-video" muted playsinline preload="none" aria-hidden="true" tabindex="-1" data-src="{{ url_for('static', path='videos/hero-crafts.mp4') }}"></video>
   <div class="hero-text">
     <h1>Creative Activities for curious hands</h1>
     <p class="lead">Browse 120+ printable art activities for kids ages 2–12. Create a free account to start downloading, or become a member for unlimited access.</p>
@@ -17,6 +18,10 @@
       <a class="btn btn-outline" href="#catalog">Browse the catalog</a>
     </div>
   </div>
+  <button class="hero-video-toggle" type="button" aria-label="Pause video" title="Pause video" hidden>
+    <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+    <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 10 7-10 7Z"/></svg>
+  </button>
 </section>
 
 <section id="how-it-works" class="section alt">
@@ -33,7 +38,7 @@
   <div class="grid three">
     {% for a in assets %}
     <article class="card asset">
-      <img class="asset-img" src="{{ url_for('static', path=a.image) }}" alt="Illustration of a child doing the {{ a.title }} activity">
+      <img class="asset-img" src="{{ url_for('static', path=a.image) }}" alt="{{ a.image_alt|default('Illustration of a child doing the ' ~ a.title ~ ' activity') }}" loading="lazy" decoding="async">
       <span class="badge badge-{{ a.tier }}">{{ a.tier|capitalize }}</span>
       <h3>{{ a.title }}</h3>
       <p class="muted">Ages {{ a.ages }} · {{ a.materials }}</p>
