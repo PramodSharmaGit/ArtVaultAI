@@ -1,0 +1,8 @@
+{% if load_failed %}
+<p class="center muted">Our activities are taking a short break. Please check back in a moment!</p>
+{% elif assets %}
+<p class="result-count">{{ assets|length }} activit{{ "y" if assets|length == 1 else "ies" }}</p>
+{% include "_asset_cards.html" %}
+{% else %}
+<p class="center muted">No activities match your search. Try clearing a filter.</p>
+{% endif %}

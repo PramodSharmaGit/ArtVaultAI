@@ -1,0 +1,32 @@
+.nav, .footer { display: flex; align-items: center; justify-content: space-between; padding: 1rem 5%; }
+.nav { border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: .5rem; }
+.nav nav { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.nav nav a:not(.btn) { text-decoration: none; color: var(--text-muted); }
+.logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+.logo-mark { width: 3rem; height: 3rem; flex: none; transition: transform .4s; }
+.logo:hover .logo-mark { transform: rotate(60deg); }
+.logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+.logo-name { font: 700 1.45rem var(--font-display); color: var(--accent); }
+.logo-tag { font-size: .72rem; letter-spacing: .03em; color: var(--support); font-weight: 500; }
+.footer { border-top: 1px solid var(--border); color: var(--text-muted); font-size: .9rem; }
+
+.section { padding: 4rem 5%; }
+.section.alt { background: var(--bg-section); }
+.section h2 { text-align: center; font-size: 2rem; margin-bottom: 1.5rem; }
+.grid { display: grid; gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+.grid.three { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 720px; }
+
+.asset { padding: 0; overflow: hidden; position: relative; transition: transform .2s; }
+.asset:hover { transform: translateY(-4px) rotate(-.5deg); }
+.asset-img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.asset .badge { position: absolute; top: .75rem; left: .75rem; }
+.asset h3, .asset p { padding: 0 1.25rem; }
+.asset h3 { margin-top: 1rem; }
+.asset p { padding-bottom: 1.25rem; }
+.muted { color: var(--text-muted); margin: 0; }
+.center { text-align: center; margin-top: 2rem; }
+
+@media (max-width: 720px) {
+  .logo-tag { display: none; }
+}

@@ -35,16 +35,11 @@
 
 <section id="catalog" class="section">
   <h2>A peek inside the vault</h2>
-  <div class="grid three">
-    {% for a in assets %}
-    <article class="card asset">
-      <img class="asset-img" src="{{ url_for('static', path=a.image) }}" alt="{{ a.image_alt|default('Illustration of a child doing the ' ~ a.title ~ ' activity') }}" loading="lazy" decoding="async">
-      <span class="badge badge-{{ a.tier }}">{{ a.tier|capitalize }}</span>
-      <h3>{{ a.title }}</h3>
-      <p class="muted">Ages {{ a.ages }} · {{ a.materials }}</p>
-    </article>
-    {% endfor %}
-  </div>
+  {% if assets %}
+  {% include "_asset_cards.html" %}
+  {% else %}
+  <p class="center muted">Our activities are taking a short break. Please check back in a moment!</p>
+  {% endif %}
   <p class="center"><a class="btn btn-outline" href="/catalog">See all activities</a></p>
 </section>
 

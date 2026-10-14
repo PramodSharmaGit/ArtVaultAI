@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Browse activities · The Art Vault{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/catalog.css') }}">
+<script defer src="https://unpkg.com/htmx.org@1.9.12"></script>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <h1 class="page-title">Browse activities</h1>
+  <p class="center muted page-sub">Everything is free to browse. Free accounts can download free activities; members get them all.</p>
+
+  <form class="filters" action="/catalog" method="get"
+        hx-get="/catalog" hx-target="#results" hx-trigger="input changed delay:300ms, search, change">
+    <label class="sr-only" for="q">Search</label>
+    <input id="q" name="q" type="search" placeholder="Search activities…" value="{{ q }}" autocomplete="off">
+
+    <label class="sr-only" for="age">Child's age</label>
+    <select id="age" name="age">
+      <option value="">Any age</option>
+      {% for n in range(2, 13) %}
+      <option value="{{ n }}" {{ "selected" if age == n }}>Age {{ n }}</option>
+      {% endfor %}
+    </select>
+
+    <label class="sr-only" for="tier">Access</label>
+    <select id="tier" name="tier">
+      <option value="">All activities</option>
+      <option value="free" {{ "selected" if tier == "free" }}>Free</option>
+      <option value="member" {{ "selected" if tier == "member" }}>Member</option>
+    </select>
+
+    <noscript><button class="btn" type="submit">Search</button></noscript>
+  </form>
+
+  <div id="results" aria-live="polite">
+    {% include "_catalog_results.html" %}
+  </div>
+</section>
+{% endblock %}
