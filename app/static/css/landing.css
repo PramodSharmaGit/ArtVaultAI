@@ -31,3 +31,8 @@
 @media (max-width: 720px) {
   .hero { min-height: 60vh; padding: 3rem 5%; }
 }
+
+.plan form { margin: 0; }
+.plan-status { display: inline-block; font-weight: 600; color: var(--support); padding: .7em 0; }
+.plan-status-member { color: var(--accent); }
+.plan-note { font-size: .85rem; margin-top: .6rem; }

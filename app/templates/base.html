@@ -33,13 +33,27 @@
       <a href="/#how-it-works">How it works</a>
       <a href="/catalog">Catalog</a>
       <a href="/#pricing">Pricing</a>
+      {% if current_user %}
+      {% set who = current_user.name or current_user.email %}
+      <details class="profile">
+        <summary class="avatar" aria-label="Your profile menu">{{ who[:1]|upper }}</summary>
+        <div class="profile-menu">
+          {% if current_user.name %}<p class="profile-name">{{ current_user.name }}</p>{% endif %}
+          <p class="profile-email">{{ current_user.email }}</p>
+          {% if user_tier %}<span class="badge badge-{{ user_tier }}">{{ user_tier|capitalize }} plan</span>{% endif %}
+          <form method="post" action="/logout"><button class="profile-logout" type="submit">Log out</button></form>
+        </div>
+      </details>
+      {% else %}
       <a href="/login">Log in</a>
       <a class="btn" href="/signup">Sign up free</a>
+      {% endif %}
     </nav>
   </header>
   <main>{% block content %}{% endblock %}</main>
   <footer class="footer">
     <p>© The Art Vault — printable art activities for kids ages 2–12.</p>
   </footer>
+  <script defer src="{{ url_for('static', path='js/nav.js') }}"></script>
 </body>
 </html>

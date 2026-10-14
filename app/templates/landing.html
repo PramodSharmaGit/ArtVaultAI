@@ -54,7 +54,11 @@
         <li>Download free activities</li>
         <li>3 downloads total</li>
       </ul>
+      {% if current_user %}
+      <span class="plan-status">{{ "Included with membership" if user_tier == "member" else "Your current plan" }}</span>
+      {% else %}
       <a class="btn btn-outline" href="/signup">Create free account</a>
+      {% endif %}
     </div>
     <div class="card plan member">
       <h3>Member</h3>
@@ -64,7 +68,14 @@
         <li>Download every activity</li>
         <li>No download limit</li>
       </ul>
+      {% if user_tier == "member" %}
+      <span class="plan-status plan-status-member">&#10003; You're a member</span>
+      {% elif current_user %}
+      <form method="post" action="/upgrade"><button class="btn" type="submit">Become a member</button></form>
+      <p class="muted plan-note">Demo only. No payment needed.</p>
+      {% else %}
       <a class="btn" href="/signup">Become a member</a>
+      {% endif %}
     </div>
   </div>
 </section>
