@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ asset.title }} · The Art Vault{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/asset.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <p class="back"><a href="/catalog">&larr; All activities</a></p>
+  <div class="detail">
+    <img class="detail-img" src="{{ url_for('static', path=asset.preview_image_url) }}" alt="Children doing the {{ asset.title }} activity">
+    <div class="detail-body">
+      <span class="badge badge-{{ asset.tier_required }}">{{ asset.tier_required|capitalize }}</span>
+      <h1>{{ asset.title }}</h1>
+      <p class="muted">Ages {{ asset.age_min }}&ndash;{{ asset.age_max }} &middot; {{ asset.materials }}</p>
+      <p class="detail-desc">{{ asset.description }}</p>
+
+      <div class="download-box">
+        {% if error %}<p class="auth-error" role="alert">{{ error }}</p>{% endif %}
+
+        {% if not current_user %}
+        <a class="btn" href="/signup?next=/assets/{{ asset.id }}">Sign up free to download</a>
+        <p class="muted download-note">Already have an account? <a href="/login?next=/assets/{{ asset.id }}">Log in</a></p>
+
+        {% elif tier == "member" %}
+        <form method="post" action="/assets/{{ asset.id }}/download" data-download><button class="btn" type="submit">Download</button></form>
+        <p class="muted download-note">Unlimited downloads with your membership.</p>
+
+        {% elif block_reason %}
+        <p class="download-blocked">{{ block_reason }}</p>
+        <form method="post" action="/upgrade"><button class="btn" type="submit">Become a member</button></form>
+        <p class="muted download-note">Demo only. No payment needed.</p>
+
+        {% else %}
+        <form method="post" action="/assets/{{ asset.id }}/download" data-download><button class="btn" type="submit">Download</button></form>
+        <p class="muted download-note">{{ used }} of {{ cap }} free downloads used.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<script defer src="{{ url_for('static', path='js/download-refresh.js') }}"></script>
+{% endblock %}

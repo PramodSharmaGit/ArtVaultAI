@@ -1,0 +1,15 @@
+.account { max-width: 680px; margin: 0 auto; }
+.account h1 { font-size: 2.2rem; margin: 0 0 .25rem; }
+.account h2 { font-size: 1.3rem; margin: 0; }
+.plan-card, .history-card { padding: 1.5rem; margin-top: 1.5rem; }
+.plan-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.plan-big { font-family: var(--font-display, inherit); font-size: 1.6rem; font-weight: 600; margin: 0 0 .75rem; }
+.meter { height: 12px; background: var(--border); border-radius: 999px; overflow: hidden; margin-bottom: .75rem; }
+.meter span { display: block; height: 100%; background: var(--support, #2F6F63); border-radius: 999px; }
+.plan-blocked { font-weight: 600; color: var(--accent); margin: 0 0 1rem; }
+.upgrade-form { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin: 1rem 0 0; }
+.history { list-style: none; margin: 1rem 0 0; padding: 0; }
+.history li { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 0; border-top: 1px solid var(--border); }
+.history a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.history a:hover { text-decoration: underline; }
+.account .auth-error { background: #FBE9E4; color: #8A2E12; border: 1px solid #E9B8A8; border-radius: var(--radius-btn); padding: .7em .9em; margin: 1rem 0 0; }

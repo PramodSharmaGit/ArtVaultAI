@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}My account · The Art Vault{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/account.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="account">
+    <h1>My account</h1>
+    <p class="muted">{{ current_user.name ~ " · " if current_user.name }}{{ current_user.email }}</p>
+
+    {% if load_failed %}
+    <p class="auth-error" role="alert">We couldn't load your account details just now. Please try again in a moment.</p>
+    {% endif %}
+
+    <div class="card plan-card">
+      <div class="plan-head">
+        <h2>Your plan</h2>
+        <span class="badge badge-{{ tier }}">{{ tier|capitalize }} plan</span>
+      </div>
+
+      {% if tier == "member" %}
+      <p class="plan-big">Unlimited downloads</p>
+      <p class="muted">Every activity is open to you.{% if member_since %} Member since {{ member_since.strftime("%B %d, %Y") }}.{% endif %}</p>
+      <p class="muted">You've downloaded {{ used }} {{ "activity" if used == 1 else "activities" }} so far.</p>
+
+      {% else %}
+      <p class="plan-big">{{ used }} of {{ cap }} free downloads used</p>
+      <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="{{ cap }}" aria-valuenow="{{ [used, cap]|min }}">
+        <span style="width: {{ ([used, cap]|min / cap * 100)|round|int }}%"></span>
+      </div>
+      {% if remaining > 0 %}
+      <p class="muted">{{ remaining }} free {{ "download" if remaining == 1 else "downloads" }} left.</p>
+      <p><a class="btn btn-outline" href="/catalog?tier=free">Browse free activities</a></p>
+      {% else %}
+      <p class="plan-blocked">You've used all {{ cap }} of your free downloads.</p>
+      {% endif %}
+      <form method="post" action="/upgrade" class="upgrade-form">
+        <input type="hidden" name="next" value="/account">
+        <button class="btn" type="submit">Become a member</button>
+        <span class="muted">Unlimited downloads. Demo only, no payment needed.</span>
+      </form>
+      {% endif %}
+    </div>
+
+    <div class="card history-card">
+      <h2>Your downloads</h2>
+      {% if history %}
+      <ul class="history">
+        {% for h in history %}
+        <li>
+          <a href="/assets/{{ h.id }}">{{ h.title }}</a>
+          <span class="muted">{{ h.downloaded_at.strftime("%b %d, %Y") }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% elif not load_failed %}
+      <p class="muted">Nothing downloaded yet. <a href="/catalog">Find an activity</a> to get started.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

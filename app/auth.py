@@ -92,6 +92,13 @@ def get_user_tier(request: Request) -> str | None:
     return request.state.tier
 
 
+def safe_next(value: str | None) -> str:
+    """Only allow redirecting to a path on this site, never to another site."""
+    if value and value.startswith("/") and not value.startswith("//") and "\\" not in value:
+        return value
+    return "/"
+
+
 def set_session_cookies(response: Response, session, secure: bool) -> None:
     opts = {"httponly": True, "samesite": "lax", "secure": secure}
     response.set_cookie(ACCESS_COOKIE, session.access_token, max_age=session.expires_in or 3600, **opts)

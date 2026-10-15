@@ -1,0 +1,17 @@
+.back { max-width: 1000px; margin: 0 auto 1rem; }
+.back a { color: var(--text-muted); text-decoration: none; }
+.back a:hover { color: var(--accent); }
+.detail { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; align-items: start; max-width: 1000px; margin: 0 auto; }
+.detail-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-card); border: 1px solid var(--border); }
+.detail-body h1 { font-size: 2.2rem; margin: .6rem 0 .4rem; }
+.detail-desc { font-size: 1.1rem; margin: 1rem 0 1.5rem; }
+.download-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.25rem; }
+.download-box form { margin: 0; }
+.download-note { font-size: .9rem; margin-top: .75rem; }
+.download-note a { color: var(--accent); font-weight: 600; }
+.download-blocked { font-weight: 600; color: var(--accent); margin: 0 0 1rem; }
+.download-box .auth-error { background: #FBE9E4; color: #8A2E12; border: 1px solid #E9B8A8; border-radius: var(--radius-btn); padding: .7em .9em; margin: 0 0 1rem; }
+
+@media (max-width: 720px) {
+  .detail { grid-template-columns: 1fr; }
+}

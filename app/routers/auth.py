@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from supabase import AuthError
 
-from app.auth import (clear_session_cookies, ensure_profile, get_current_user, set_session_cookies,
+from app.auth import (clear_session_cookies, ensure_profile, get_current_user, safe_next, set_session_cookies,
                       supabase_client)
 from app.db import get_db
 from app.templating import templates
@@ -34,62 +34,67 @@ def render(request: Request, template: str, status_code: int = 200, **context) -
     return templates.TemplateResponse(request, template, context, status_code=status_code)
 
 
-def logged_in_redirect(request: Request, session) -> RedirectResponse:
-    response = RedirectResponse("/", status_code=303)
+def logged_in_redirect(request: Request, session, target: str = "/") -> RedirectResponse:
+    response = RedirectResponse(safe_next(target), status_code=303)
     set_session_cookies(response, session, secure=request.url.scheme == "https")
     return response
 
 
 @router.get("/signup", response_class=HTMLResponse)
-def signup_page(request: Request):
+def signup_page(request: Request, next: str = ""):
     if get_current_user(request):
-        return RedirectResponse("/", status_code=303)
-    return render(request, "signup.html")
+        return RedirectResponse(safe_next(next), status_code=303)
+    return render(request, "signup.html", next_url=safe_next(next))
 
 
 @router.post("/signup", response_class=HTMLResponse)
 def signup_submit(request: Request, name: str = Form(""), email: str = Form(""), password: str = Form(""),
-                  db: Session = Depends(get_db)):
+                  next: str = Form("/"), db: Session = Depends(get_db)):
+    next_url = safe_next(next)
     name = " ".join(name.split())[:60]
     email = email.strip().lower()
     if not name or "@" not in email or len(password) < MIN_PASSWORD:
-        return render(request, "signup.html", 400, name=name, email=email,
+        return render(request, "signup.html", 400, name=name, email=email, next_url=next_url,
                       error=f"Enter your name, a valid email and a password of at least {MIN_PASSWORD} characters.")
     try:
         result = supabase_client().auth.sign_up(
             {"email": email, "password": password, "options": {"data": {"full_name": name}}})
     except AuthError as exc:
-        return render(request, "signup.html", 400, name=name, email=email, error=friendly_error(exc))
+        return render(request, "signup.html", 400, name=name, email=email, next_url=next_url,
+                      error=friendly_error(exc))
     if result.user is None:
-        return render(request, "signup.html", 400, name=name, email=email, error="Something went wrong. Please try again.")
+        return render(request, "signup.html", 400, name=name, email=email, next_url=next_url,
+                      error="Something went wrong. Please try again.")
 
     ensure_profile(db, uuid.UUID(result.user.id))
     if result.session is None:  # Supabase is set to require email confirmation
-        return render(request, "login.html", email=email,
+        return render(request, "login.html", email=email, next_url=next_url,
                       notice="Almost there! Check your email to confirm your account, then log in.")
-    return logged_in_redirect(request, result.session)
+    return logged_in_redirect(request, result.session, next_url)
 
 
 @router.get("/login", response_class=HTMLResponse)
-def login_page(request: Request):
+def login_page(request: Request, next: str = ""):
     if get_current_user(request):
-        return RedirectResponse("/", status_code=303)
-    return render(request, "login.html")
+        return RedirectResponse(safe_next(next), status_code=303)
+    return render(request, "login.html", next_url=safe_next(next))
 
 
 @router.post("/login", response_class=HTMLResponse)
 def login_submit(request: Request, email: str = Form(""), password: str = Form(""),
-                 db: Session = Depends(get_db)):
+                 next: str = Form("/"), db: Session = Depends(get_db)):
+    next_url = safe_next(next)
     email = email.strip().lower()
     try:
         result = supabase_client().auth.sign_in_with_password({"email": email, "password": password})
     except AuthError as exc:
-        return render(request, "login.html", 400, email=email, error=friendly_error(exc))
+        return render(request, "login.html", 400, email=email, next_url=next_url, error=friendly_error(exc))
     if result.user is None or result.session is None:
-        return render(request, "login.html", 400, email=email, error="Something went wrong. Please try again.")
+        return render(request, "login.html", 400, email=email, next_url=next_url,
+                      error="Something went wrong. Please try again.")
 
     ensure_profile(db, uuid.UUID(result.user.id))
-    return logged_in_redirect(request, result.session)
+    return logged_in_redirect(request, result.session, next_url)
 
 
 @router.post("/logout")

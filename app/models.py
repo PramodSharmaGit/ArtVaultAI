@@ -8,6 +8,9 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 TIER_FREE = "free"
 TIER_MEMBER = "member"
 
+# Free accounts get this many downloads in total, ever (no monthly reset).
+FREE_DOWNLOAD_CAP = 2
+
 
 class Base(DeclarativeBase):
     pass

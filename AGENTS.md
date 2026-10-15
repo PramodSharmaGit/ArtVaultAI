@@ -29,7 +29,7 @@ Everyone sees the same catalog and the same asset detail pages. The tier only co
 ### Out of scope (explicitly, for this milestone)
 - Real payment processing (Stripe, etc.)
 - Any AI/agent-powered feature inside the app itself — not required by the assignment
-- Monthly download-limit resets — use a flat lifetime cap for the free tier (e.g. 3 downloads total, ever), not a per-month counter, to avoid needing reset/cron logic
+- Monthly download-limit resets — use a flat lifetime cap for the free tier (currently 2 downloads total, ever), not a per-month counter, to avoid needing reset/cron logic
 - Real, usable activity files — placeholder downloads are fine; preview images should be original, not pulled from real products/sites
 - Password reset / email verification flows — nice-to-have only if time remains
 
@@ -70,7 +70,7 @@ Source of truth is `app/models.py` (SQLAlchemy). Tables are created by running `
 
 Favorites is cut from this build to keep scope down — not in the schema.
 
-- **Free-tier lifetime download cap: 3** — enforced in FastAPI route code (count a user's rows in `downloads`), not a DB constraint, so it's a one-line change if it ever needs to change.
+- **Free-tier lifetime download cap: 2** (small on purpose so the limit is easy to demo; `FREE_DOWNLOAD_CAP` in `app/models.py`) — enforced in FastAPI route code (count a user's rows in `downloads`), not a DB constraint, so it's a one-line change if it ever needs to change.
 
 ## Suggested Project Structure
 
@@ -91,7 +91,8 @@ app/
     css/
       theme.css   # design tokens — see "Brand / Design Tokens" above
     images/
-    files/        # placeholder downloadable files for each asset
+  private/
+    files/        # placeholder downloadable files for each asset. Deliberately NOT under static/ (which is public): only the tier-checked download route serves these
   models.py        # SQLAlchemy models — source of truth for the schema, see "Database Schema" above
   init_db.py        # creates tables from models.py: `python -m app.init_db`
   db.py             # Supabase/Postgres connection (reads DATABASE_URL)
@@ -127,11 +128,11 @@ README.md
 
 - **Auth:** Supabase's built-in Auth — no custom password hashing/session code.
 - **Brand / Design:** "The Art Vault," terracotta/teal palette — concrete values in "Brand / Design Tokens" above and `app/static/css/theme.css`. If the palette changes, edit both in the same change so they don't drift out of sync.
-- **Catalog content (demo seed data):** 6 activities, 2 free / 4 member. The landing page's "120+ activities" line is marketing copy, not a literal content requirement — these 6 are the real seed data:
+- **Catalog content (demo seed data):** 6 activities, 3 free / 3 member (Squiggle Monster Maker was switched to free so the free-tier cap is easy to demo). The landing page's "120+ activities" line is marketing copy, not a literal content requirement — these 6 are the real seed data:
   1. Window Garden Collage — Free — ages 2–5 — tissue paper & glue
   2. Cloud Watching Journal — Free — ages 5–9 — printable journal
   3. Paper Rocket Kit — Member — ages 6–10 — cut & fold template
   4. Sunshine Suncatcher — Member — ages 3–8 — tissue paper & contact film
   5. Pressed Flower Cards — Member — ages 6–12 — pressed flowers & cardstock
-  6. Squiggle Monster Maker — Member — ages 4–9 — markers & cut-outs
+  6. Squiggle Monster Maker — Free — ages 4–9 — markers & cut-outs
 - **htmx:** included, but scoped to two things only — the favorite toggle on a catalog card, and live search/filter on the catalog page. Signup/login and the download/tier-gating flow stay plain server-rendered forms/pages — those need to be simple and reliable, not snappy, and keeping htmx out of that path means a UI bug there can't accidentally affect access control.

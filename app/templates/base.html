@@ -41,6 +41,7 @@
           {% if current_user.name %}<p class="profile-name">{{ current_user.name }}</p>{% endif %}
           <p class="profile-email">{{ current_user.email }}</p>
           {% if user_tier %}<span class="badge badge-{{ user_tier }}">{{ user_tier|capitalize }} plan</span>{% endif %}
+          <div class="profile-links"><a class="profile-link" href="/account">My account</a></div>
           <form method="post" action="/logout"><button class="profile-logout" type="submit">Log out</button></form>
         </div>
       </details>

@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.db import SessionLocal, engine
 from app.models import TIER_FREE, TIER_MEMBER, Asset, Base
 
-# Demo seed data (see AGENTS.md "Decided"): 2 free, 4 member.
+# Demo seed data (see AGENTS.md "Decided"): 3 free, 3 member.
 SEED_ASSETS = [
     ("Window Garden Collage", "Press colorful tissue paper onto a sunny window to grow a flower garden that glows.",
      2, 5, "Tissue paper & glue", "window-garden", TIER_FREE),
@@ -18,7 +18,7 @@ SEED_ASSETS = [
     ("Pressed Flower Cards", "Arrange pressed flowers and leaves on cardstock to make greeting cards.",
      6, 12, "Pressed flowers & cardstock", "pressed-flowers", TIER_MEMBER),
     ("Squiggle Monster Maker", "Turn a wiggly squiggle into a silly monster with markers and cut-outs.",
-     4, 9, "Markers & cut-outs", "squiggle-monster", TIER_MEMBER),
+     4, 9, "Markers & cut-outs", "squiggle-monster", TIER_FREE),
 ]
 
 
