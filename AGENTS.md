@@ -115,19 +115,19 @@ README.md
 2. `python -m venv venv && source venv/bin/activate` (or the Windows equivalent)
 3. `pip install -r requirements.txt`
 4. Copy `.env.example` to `.env`, fill in the team's shared Supabase credentials (see Conventions above for which values)
-5. `python -m app.init_db` — creates the tables (one-time, safe to re-run)
+5. **Skip this if the team's shared Supabase database is already set up (it is).** Only when starting from an empty database: `python -m app.init_db` — creates the tables and seeds the 6 demo activities (safe to re-run)
 6. `uvicorn app.main:app --reload`
 
-## Open Decisions — needs group input
+## Open Decisions
 
-- [ ] **Hero visual:** real photo/image vs. the current illustration-style graphic — fine to keep the placeholder illustration until the team has an actual image.
-- [ ] **Card preview images:** currently placeholder icons; swap in real images via `preview_image_url` once catalog content is finalized.
 - [ ] **Mobile nav cleanup:** deferred until core features (database, auth, tier-gated downloads) work. The layout is already responsive; only the nav needs a compact phone version. Do a quick phone-width check at the end of each new page.
 
 ## Decided (current state — not locked in; update this section + `theme.css` together whenever they change)
 
 - **Auth:** Supabase's built-in Auth — no custom password hashing/session code.
 - **Brand / Design:** "The Art Vault," terracotta/teal palette — concrete values in "Brand / Design Tokens" above and `app/static/css/theme.css`. If the palette changes, edit both in the same change so they don't drift out of sync.
+- **Hero visual:** the landing hero is a video (`app/static/videos/hero-crafts.mp4`, driven by `hero-video.js`). Finalised — the earlier illustration/animated hero is retired.
+- **Card preview images:** each activity uses a real photo (`app/static/images/<slug>.jpeg`, referenced by `preview_image_url`). Finalised — no more placeholder icons.
 - **Catalog content (demo seed data):** 6 activities, 3 free / 3 member (Squiggle Monster Maker was switched to free so the free-tier cap is easy to demo). The landing page's "120+ activities" line is marketing copy, not a literal content requirement — these 6 are the real seed data:
   1. Window Garden Collage — Free — ages 2–5 — tissue paper & glue
   2. Cloud Watching Journal — Free — ages 5–9 — printable journal
