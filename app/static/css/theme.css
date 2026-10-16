@@ -9,6 +9,10 @@
   --border: #E8DFD0;
   --accent: #C1542E;   /* terracotta: primary actions, Member tier */
   --support: #2F6F63;  /* teal: Free tier, secondary icons */
+  --footer-bg: #1F1C1B;
+  --footer-text: #BFB7B0;
+  --footer-heading: #FFFDF9;
+  --footer-border: #48403B;
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Work Sans", system-ui, sans-serif;
   --radius-btn: 7px;

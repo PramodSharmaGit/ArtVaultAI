@@ -126,6 +126,7 @@ README.md
 
 - **Auth:** Supabase's built-in Auth — no custom password hashing/session code.
 - **Brand / Design:** "The Art Vault," terracotta/teal palette — concrete values in "Brand / Design Tokens" above and `app/static/css/theme.css`. If the palette changes, edit both in the same change so they don't drift out of sync.
+- **Footer:** dark three-column footer, using `--footer-*` tokens in `theme.css`, with public About, FAQ, Activity Safety, Contact, Community, Privacy and Terms pages. Contact details and social profiles are explicitly labeled mock data; privacy and terms are sample drafts for review. Replace these before public launch.
 - **Hero visual:** the landing hero is a video (`app/static/videos/hero-crafts.mp4`, driven by `hero-video.js`). Finalised — the earlier illustration/animated hero is retired.
 - **Card preview images:** each activity uses a real photo (`app/static/images/<slug>.jpeg`, referenced by `preview_image_url`). Finalised — no more placeholder icons.
 - **Catalog content (demo seed data):** 6 activities, 3 free / 3 member (Squiggle Monster Maker was switched to free so the free-tier cap is easy to demo). The landing page's "120+ activities" line is marketing copy, not a literal content requirement — these 6 are the real seed data:

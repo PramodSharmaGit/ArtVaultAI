@@ -15,3 +15,30 @@
 @media (max-width: 720px) {
   .detail { grid-template-columns: 1fr; }
 }
+
+.activity-guide { max-width: 1000px; margin: 2rem auto 0; padding-top: .5rem; }
+.section .activity-guide h2 { text-align: left; font-size: 1.5rem; margin: 0 0 1rem; }
+.guide-overview { max-width: 48rem; margin-bottom: 2rem; }
+.guide-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2.5rem; margin-bottom: 2.5rem; align-items: start; }
+.guide-supplies { background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 1.5rem; }
+.activity-guide ul, .activity-guide ol { padding-left: 1.3rem; margin: 0; }
+.activity-guide li { padding-left: .25rem; margin-bottom: .7rem; }
+.activity-guide li::marker { color: var(--support); font-weight: 600; }
+.guide-skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 2rem; margin-bottom: 2rem !important; }
+.guide-tip { border-left: 3px solid var(--support); padding: 1.25rem 1.5rem; background: var(--bg-card); margin: 1rem 0 1.5rem; }
+.section .guide-tip h2 { font-size: 1.15rem; margin-bottom: .5rem; }
+.guide-tip p { margin: 0 0 .5rem; }
+.guide-tip a { color: var(--support); }
+.guide-demo { font-size: .85rem; }
+@media (max-width: 720px) {
+  .guide-grid, .guide-skills { grid-template-columns: 1fr; gap: 1rem; }
+  .activity-guide { margin-top: 2rem; padding-top: 2rem; }
+}
+
+.activity-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 1000px; margin: 2rem auto 0; padding: 1.25rem 1.5rem; background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius-card); }
+.activity-facts dt { font-size: .8rem; color: var(--text-muted); }
+.activity-facts dd { margin: .2rem 0 0; font-weight: 500; }
+.guide-outcome { margin-bottom: 2.5rem; }
+@media (max-width: 420px) { .activity-facts { gap: 1rem .75rem; font-size: .9rem; } }
+
+@media (max-width: 720px) { .activity-facts { grid-template-columns: 1fr 1fr; } }

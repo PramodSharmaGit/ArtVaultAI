@@ -7,6 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.auth import ensure_profile, get_current_user
+from app.activity_content import ACTIVITY_GUIDES, ACTIVITY_OUTCOMES
 from app.db import get_db
 from app.models import FREE_DOWNLOAD_CAP, TIER_FREE, TIER_MEMBER, Asset, Download, Profile
 from app.templating import BASE_DIR, templates
@@ -93,6 +94,8 @@ def render_detail(request: Request, db: Session, asset: Asset, status_code: int 
             tier = TIER_FREE
     context = {
         "asset": asset, "error": error, "tier": tier, "used": used, "cap": FREE_DOWNLOAD_CAP,
+        "guide": ACTIVITY_GUIDES.get(asset.title),
+        "outcome": ACTIVITY_OUTCOMES.get(asset.title),
         "block_reason": download_block_reason(tier, asset.tier_required, used) if user else None,
     }
     return templates.TemplateResponse(request, "asset_detail.html", context, status_code=status_code)

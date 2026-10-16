@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/landing.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/landing.css') }}?v={{ asset_version('css/landing.css') }}">
 <link rel="preload" as="image" href="{{ url_for('static', path='images/hero-crafts.jpg') }}">
 <script defer src="{{ url_for('static', path='js/hero-video.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% set titles = {'about': 'About The Art Vault', 'faq': 'Frequently asked questions', 'safety': 'Activity safety', 'contact': 'Contact us', 'community': 'Our creative community', 'privacy': 'Privacy policy', 'terms': 'Terms of use', 'how': 'How it works', 'membership': 'More room to create'} %}
+{% block title %}{{ titles[page] }} · The Art Vault{% endblock %}
+{% block content %}
+<section class="section info-page">
+  <p class="info-eyebrow">Little Hands. Limitless Ideas.</p>
+  <h1>{{ titles[page] }}</h1>
+  {% if page == 'how' %}
+  <p class="info-intro">From a little inspiration to a creative afternoon in three simple steps.</p>
+  <h2>1. Find an activity</h2><p>Browse every activity without an account. Search by materials, filter by age and choose something that sparks your child’s curiosity.</p>
+  <h2>2. Choose your plan</h2><p>Create a free account for {{ download_cap }} lifetime downloads of free activities. Membership unlocks unlimited downloads across the catalog.</p>
+  <h2>3. Gather your supplies</h2><p>Check the materials list and create together with adult supervision. This demo currently includes placeholder downloads rather than full printables.</p>
+  <a class="btn" href="/catalog">Find your next activity</a>
+  {% elif page == 'membership' %}
+  <p class="info-intro">Choose the space you need for your next creative adventure.</p>
+  <h2>Free — a little inspiration</h2><p>Browse every activity and download free activities with a lifetime allowance of {{ download_cap }} downloads.</p>
+  <h2>Member — keep creating</h2><p>Download both free and member activities without a download limit.</p>
+  <p>This is a demo membership. No payment is required and there are no recurring charges. Downloads currently contain placeholder files.</p>
+  {% if current_user %}
+  <a class="btn" href="/account">Manage your membership</a>
+  {% else %}
+  <a class="btn" href="/signup">Create your free account</a>
+  {% endif %}
+  {% elif page == 'about' %}
+  <p class="info-intro">A little inspiration. A few simple materials. A whole world of possibilities.</p>
+  <h2>Space for curious hands</h2>
+  <p>The Art Vault is a library of printable art activities for kids ages 2–12, made for creative time at home or in the classroom. Explore tissue-paper collages, paper rockets, flower cards and more.</p>
+  <h2>Make it your own</h2>
+  <p>Use each activity as a starting point. Try different colors, follow a new idea and enjoy the process together. Every creation can be different.</p>
+  <h2>Start with a little inspiration</h2>
+  <p>Everyone can browse the full catalog. Create a free account to download free activities, or choose membership for unlimited downloads.</p>
+  <a class="btn" href="/catalog">Explore the activities</a>
+  {% elif page == 'faq' %}
+  <p class="info-intro">Everything you need to get started with a little creative time.</p>
+  <details open><summary>What ages are the activities for?</summary><p>Our activities cover ages 2–12. Each activity lists a suggested age range and materials. Use the catalog’s age filter to find a starting point for your child.</p></details>
+  <details><summary>Do I need an account to browse?</summary><p>No. Everyone can browse the catalog and activity details. You need to sign in to download an activity.</p></details>
+  <details><summary>What does a free account include?</summary><p>A free account can download free-tier activities up to a lifetime limit of {{ download_cap }} downloads. This allowance does not reset monthly.</p></details>
+  <details><summary>What does membership include?</summary><p>Members can download both free and member activities without a download limit. The current membership upgrade is a demonstration and requires no payment.</p></details>
+  <details><summary>What will I download?</summary><p>This demo currently provides placeholder text files for the six catalog activities. Full printable activity files are not yet available.</p></details>
+  <details><summary>How do I find the materials I need?</summary><p>The materials appear on each activity card and detail page. Choose an activity that suits the supplies you have, and read our <a href="/activity-safety">activity safety guidance</a> before getting started.</p></details>
+  {% elif page == 'contact' %}
+  <p class="info-intro">A question about an activity? A little creative inspiration to share? We’d love to hear from you.</p>
+  <div class="card"><strong>Demo contact details</strong><p>These details are examples for this project. The inbox is not monitored.</p></div>
+  <h2>Say hello</h2>
+  <p>General questions: <span>hello@artvault.example</span></p>
+  <p>Account and download help: <span>support@artvault.example</span></p>
+  <h2>Find a quick answer</h2>
+  <p>Visit our <a href="/faq">frequently asked questions</a> for details about free downloads, membership and materials.</p>
+  {% elif page == 'community' %}
+  <p class="info-intro">Little moments of creativity, shared together.</p>
+  <div class="card"><strong>Demo social profiles</strong><p>These are mock profile names, not links to active Art Vault accounts.</p></div>
+  <h2 id="instagram">Instagram</h2><p>@theartvault_demo — colorful projects, works in progress and ideas for your next creative afternoon.</p>
+  <h2 id="facebook">Facebook</h2><p>The Art Vault Demo — activity inspiration for families and educators.</p>
+  <h2 id="tiktok">TikTok</h2><p>@theartvault_demo — quick craft ideas and playful ways to try something new.</p>
+  {% elif page == 'privacy' %}
+  <p class="info-intro">A simple overview of information used by the Art Vault demo.</p>
+  <div class="card"><strong>Sample policy — draft for review</strong><p>This is demonstration content. A final policy must be reviewed and matched to the live service before launch.</p></div>
+  <h2>Account information</h2><p>The demo uses Supabase for authentication and stores account information needed to sign you in. Your profile records your plan, and download records support the free allowance and account history.</p>
+  <h2>Sign-in cookies</h2><p>The site uses cookies to maintain your signed-in session. Logging out ends your session on this browser.</p>
+  <h2>External services</h2><p>The site uses hosted services, including Supabase and externally loaded fonts or scripts. The final policy should describe the services used in production, their data handling and any retention periods.</p>
+  <h2>Questions</h2><p>See our <a href="/contact">contact page</a>. Contact details are currently examples for the demo.</p>
+  {% elif page == 'terms' %}
+  <p class="info-intro">Guidelines for exploring and using the Art Vault demo.</p>
+  <div class="card"><strong>Sample terms — draft for review</strong><p>These terms are demonstration content, not a final agreement for a live service.</p></div>
+  <h2>About this demo</h2><p>The Art Vault offers a browsable activity catalog with free and member access. Downloads currently contain placeholder files. Membership upgrades are for demonstration only, with no payment or recurring charge.</p>
+  <h2>Your account</h2><p>Keep your sign-in details private. Your account page shows your plan and download usage.</p>
+  <h2>Using activities</h2><p>Choose activities suitable for the child and provide adult supervision. Read the <a href="/activity-safety">activity safety guidance</a> and the instructions supplied with your materials.</p>
+  <h2>Before public launch</h2><p>Final terms should define permitted use of activity files, content ownership, account rules and any applicable purchase or cancellation conditions.</p>
+  {% else %}
+  <p class="info-intro">Make room for creativity with thoughtful preparation and adult supervision.</p>
+  <h2>Create together</h2>
+  <p>Activities are intended for children with adult supervision. Suggested ages are a guide; choose materials and tasks that suit your child’s abilities.</p>
+  <h2>Check your supplies</h2>
+  <p>Follow the age labels and instructions on art supplies. Keep small cut-outs and loose decorations away from children who may put them in their mouths. An adult should help with cutting and handle sharp tools.</p>
+  <h2>Prepare the space</h2>
+  <p>Use a stable work surface, protect the table and keep supplies within easy reach. For window activities, adults should place artwork at a reachable height so children do not need to climb.</p>
+  <h2>Choose materials thoughtfully</h2>
+  <p>Consider known sensitivities when choosing glue, plants and other supplies. Keep craft materials separate from food, and tidy up and wash hands when you finish.</p>
+  {% endif %}
+</section>
+{% endblock %}

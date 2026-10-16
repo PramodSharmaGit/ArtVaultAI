@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from app.auth import apply_cookie_updates
 from app.db import get_db
 from app.models import Asset
-from app.routers import account, auth, catalog
+from app.routers import account, auth, catalog, pages
 from app.templating import BASE_DIR, templates
 
 logger = logging.getLogger(__name__)
@@ -20,6 +20,7 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 app.include_router(account.router)
 app.include_router(auth.router)
 app.include_router(catalog.router)
+app.include_router(pages.router)
 
 
 @app.middleware("http")

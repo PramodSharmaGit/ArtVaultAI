@@ -3,7 +3,7 @@
 {% block title %}{{ asset.title }} · The Art Vault{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/asset.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/asset.css') }}?v={{ asset_version('css/asset.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -16,6 +16,7 @@
       <h1>{{ asset.title }}</h1>
       <p class="muted">Ages {{ asset.age_min }}&ndash;{{ asset.age_max }} &middot; {{ asset.materials }}</p>
       <p class="detail-desc">{{ asset.description }}</p>
+
 
       <div class="download-box">
         {% if error %}<p class="auth-error" role="alert">{{ error }}</p>{% endif %}
@@ -40,6 +41,43 @@
       </div>
     </div>
   </div>
+      {% if guide %}
+      <dl class="activity-facts">
+        <div><dt>Suitable for</dt><dd>Ages {{ asset.age_min }}–{{ asset.age_max }}</dd></div>
+        <div><dt>Experience</dt><dd>Beginner-friendly</dd></div>
+        <div><dt>Format</dt><dd>Self-paced, at home</dd></div>
+        <div><dt>Adult support</dt><dd>Supervision recommended</dd></div>
+      </dl>
+      {% endif %}
+  {% if guide %}
+  <div class="activity-guide">
+    <section class="guide-overview" aria-labelledby="activity-overview">
+      <h2 id="activity-overview">What we’ll create</h2>
+      <p>{{ guide.overview }}</p>
+    </section>
+    <div class="guide-grid">
+      <section class="guide-supplies" aria-labelledby="activity-supplies">
+        <h2 id="activity-supplies">Supplies you’ll need</h2>
+        <ul>{% for supply in guide.supplies %}<li>{{ supply }}</li>{% endfor %}</ul>
+      </section>
+      <section aria-labelledby="activity-steps">
+        <h2 id="activity-steps">What we’ll cover</h2>
+        <ol>{% for step in guide.steps %}<li>{{ step }}</li>{% endfor %}</ol>
+      </section>
+    </div>
+    <section class="guide-outcome" aria-labelledby="activity-outcome">
+      <h2 id="activity-outcome">What you’ll make</h2>
+      <p>{{ outcome }}</p>
+      <p class="muted">Gather the supplies listed above before starting. Physical materials are not included.</p>
+    </section>
+    <section aria-labelledby="activity-skills">
+      <h2 id="activity-skills">Skills to explore</h2>
+      <ul class="guide-skills">{% for skill in guide.skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+    </section>
+    <aside class="guide-tip"><h2>A little help from a grown-up</h2><p>{{ guide.tip }}</p><a href="/activity-safety">Read our activity safety guidance →</a></aside>
+    <p class="muted guide-demo">These ideas are free to read. Demo downloads currently contain placeholder files, rather than full printable activity sheets.</p>
+  </div>
+  {% endif %}
 </section>
 <script defer src="{{ url_for('static', path='js/download-refresh.js') }}"></script>
 {% endblock %}
